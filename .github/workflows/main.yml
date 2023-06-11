@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>검색 페이지</title>
+</head>
+<body>
+  <h1>검색 페이지</h1>
+  
+  <form action="/search" method="GET">
+    <input type="text" name="query" placeholder="검색어를 입력하세요">
+    <input type="submit" value="검색">
+  </form>
+  
+  <h2>기록</h2>
+  
+  <ul id="history">
+    <!-- 여기에 검색 기록이 동적으로 추가될 것입니다 -->
+  </ul>
+  
+  <script>
+    // 검색 기록을 저장할 배열
+    var searchHistory = [];
+    
+    // 검색 기록을 보여주는 함수
+    function showHistory() {
+      var historyList = document.getElementById('history');
+      
+      // 이전 기록을 모두 지우고 새로운 기록을 추가합니다
+      historyList.innerHTML = '';
+      for (var i = 0; i < searchHistory.length; i++) {
+        var listItem = document.createElement('li');
+        listItem.textContent = searchHistory[i];
+        historyList.appendChild(listItem);
+      }
+    }
+    
+    // 검색어를 제출할 때 호출되는 함수
+    function submitSearch() {
+      var query = document.querySelector('input[name="query"]').value;
+      
+      // 검색 기록 배열에 추가합니다
+      searchHistory.push(query);
+      
+      // 검색 기록을 보여줍니다
+      showHistory();
+      
+      // 검색어를 서버로 전송하는 추가 로직이 필요합니다
+      // 이 예제에서는 실제 검색을 수행하지 않고, 검색 기록만을 보여줍니다
+      console.log('검색어:', query);
+      
+      // 입력 필드를 초기화합니다
+      document.querySelector('input[name="query"]').value = '';
+      
+      // 페이지가 새로고침되지 않도록 기본 이벤트를 취소합니다
+      return false;
+    }
+    
+    // 검색 폼의 제출 이벤트를 처리합니다
+    document.querySelector('form').addEventListener('submit', submitSearch);
+  </script>
+</body>
+</html>
